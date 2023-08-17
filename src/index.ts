@@ -1,15 +1,15 @@
-import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
+import { Express } from "express";
+import { serverExpress } from "./app";
+import "reflect-metadata";
+import { initializeDB } from './database/connection';
 
 dotenv.config();
+const port = parseInt(process.env.PORT as string, 10) || 7000;
+const hostname = process.env.HOST || "0.0.0.0";
+const server: Express = serverExpress;
 
-const app: Express = express();
-const port = process.env.PORT || 7000;
-
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
-});
-
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+server.listen(port, hostname, () => {
+  initializeDB();
+  console.log(`⚡️[server]: Server is running at http://${hostname}:${port}`);
 });
