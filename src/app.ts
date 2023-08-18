@@ -1,8 +1,9 @@
 import express, { Express, Request, Response } from "express";
 import compression from "compression"
 import cors from "cors";
-import authRouter from "./routes/auth.routes";
 import { authMiddleware } from "./middleware/auth.middleware";
+import authRouter from "./app/user/user.routes";
+
 
 export const serverExpress: Express = express();
 serverExpress.use(express.json());

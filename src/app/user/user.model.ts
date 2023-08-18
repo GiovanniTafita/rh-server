@@ -1,24 +1,19 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique } from "typeorm";
 import "reflect-metadata";
+import BaseModel from "../../models/base.model";
 
 @Entity()
 @Unique(['email'])
-export class User {
-  @PrimaryGeneratedColumn()
-  id?: number;
+export class User extends BaseModel {
+  @Column()
+  email: string;
 
   @Column()
-  email?: string;
-
-  @Column()
-  password?: string;
+  password: string;
 
   @Column({
     type: 'simple-array',
-    default: 'ROLE_USER',
+    default: 'USER',
   })
-  roles?: string[];
-
-  @CreateDateColumn()
-  createdAt?: Date;
+  roles: string[];
 }
