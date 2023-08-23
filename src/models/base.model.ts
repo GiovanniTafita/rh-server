@@ -7,11 +7,11 @@ import {
 
 export default abstract class BaseModel extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number;
+    id?: number;
 
     @CreateDateColumn()
-    created_at: Date;
+    createdAt?: Date;
 
     @UpdateDateColumn()
-    updated_at: Date;
+    updatedAt?: Date;
 }

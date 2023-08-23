@@ -7,20 +7,20 @@ const publicKey = fs.readFileSync('jwt/public_key.pem', 'utf8');
 
 const signOptions: SignOptions = {
   algorithm: 'RS256', // Utilisez l'algorithme approprié pour les clés RSA
-  expiresIn: '1h',
+  expiresIn: '2h',
 };
 
 const verifyOptions: VerifyOptions = {
   algorithms: ['RS256'],
 };
 
-export const generateToken = (userId: number): string => {
-  const payload = { userId };
+export const generateToken = async (userId: number, roles: string[]) => {
+  const payload = { userId, roles };
   const token = jwt.sign(payload, privateKey, signOptions);
   return token;
 };
 
-export const verifyToken = (token: string) => {
+export const verifyToken = async (token: string) => {
   try {
     const decodedToken = jwt.verify(token, publicKey, verifyOptions);
     return decodedToken;
