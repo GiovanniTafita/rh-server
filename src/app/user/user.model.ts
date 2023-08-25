@@ -1,7 +1,8 @@
-import { Column, Entity, JoinColumn, OneToOne, Unique } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, Unique } from "typeorm";
 import "reflect-metadata";
 import BaseModel from "../../models/base.model";
 import { Profile } from "../profile/profile.model";
+import { TimeSheet } from "../time-sheet/time-sheet.model";
 
 @Entity()
 @Unique(['email'])
@@ -23,4 +24,7 @@ export class User extends BaseModel {
   })
   @JoinColumn()
   profile?: Profile;
+
+  @OneToMany(() => TimeSheet, (timeSheet) => timeSheet.user)
+  timeSheets?: TimeSheet[]
 }
