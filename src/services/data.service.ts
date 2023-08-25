@@ -31,8 +31,8 @@ export class DataService<T> {
     }
   }
 
-  public async getAll() {
-    return await this.repository.find();
+  public async getAll(option: boolean = false) {
+    return await this.repository.find({ withDeleted: option });
   }
 
   public async getOneBy(condition: any) {
@@ -41,5 +41,9 @@ export class DataService<T> {
 
   public async delete(condition: any) {
     return await this.repository.delete(condition);
+  }
+
+  public async deleteSoft(condition: any) {
+    return await this.repository.softDelete(condition);
   }
 }

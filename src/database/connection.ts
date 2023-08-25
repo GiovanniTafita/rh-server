@@ -1,7 +1,8 @@
+import Logger from "../logger/logger";
 import { AppDataSource } from "./data-source";
 
 export const initializeDB = async () => AppDataSource.initialize()
   .then(() => {
-    console.log("Database running...");
+    Logger.info("Database is running...");
   })
-  .catch((error) => console.log(error))
+  .catch((error) => Logger.error(error))

@@ -15,7 +15,7 @@ export const auth = (role: string = 'USER') => {
       }
       if (decodedToken) {
         const payload: any = decodedToken;
-        if (payload.roles.includes(role.toLocaleUpperCase())) {
+        if (payload.roles === role.toLocaleUpperCase()) {
           next();
         }
         else {

@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import { User } from './user.model';
 import { UserService } from './user.service';
 import { Profile } from '../profile/profile.model';
-import { ProfileService } from '../profile/profile.service';
 
 const userService = new UserService();
 export const createUser = async (req: Request, res: Response) => {
@@ -45,9 +44,31 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const getUsers = async (req: Request, res: Response) => {
   try {
-    const users = await userService.getAll();
+    const users = await userService.getAll(true);
 
     return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+}
+
+export const getUser = async (req: Request, res: Response) => {
+  try {
+    const id = +req.params['id'];
+    const user = await userService.getOneBy({ id });
+
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+}
+
+export const softDeleteUser = async (req: Request, res: Response) => {
+  try {
+    const id = +req.params['id'];
+    const deletedUser = await userService.deleteSoft(id);
+
+    return res.status(200).json(deletedUser);
   } catch (error) {
     return res.status(500).json({ error });
   }

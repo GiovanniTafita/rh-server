@@ -13,10 +13,9 @@ export class User extends BaseModel {
   password?: string;
 
   @Column({
-    type: 'simple-array',
     default: 'USER',
   })
-  roles?: string[];
+  roles?: string;
 
   @OneToOne(() => Profile, {
     eager: true,
