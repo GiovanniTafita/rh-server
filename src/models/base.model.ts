@@ -15,7 +15,4 @@ export default abstract class BaseModel extends BaseEntity {
 
     @UpdateDateColumn()
     updatedAt?: Date;
-
-    @DeleteDateColumn()
-    deletedAt?: Date;
 }

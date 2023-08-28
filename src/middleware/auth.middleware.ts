@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../services/token.service';
+import Logger from '../logger/logger';
 
 export const auth = (role: string = 'USER') => {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -15,15 +16,15 @@ export const auth = (role: string = 'USER') => {
       }
       if (decodedToken) {
         const payload: any = decodedToken;
-        if (payload.roles === role.toLocaleUpperCase()) {
-          next();
+        if (payload.roles.includes(role.toLocaleUpperCase())) {
+          return next();
         }
         else {
           return res.status(403).json({ message: 'unauthorized' });
         }
       }
     } catch (error) {
-      console.log(error);
+      Logger.error(error);
       return res.status(401).json(error);
     }
   }

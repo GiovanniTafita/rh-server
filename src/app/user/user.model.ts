@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, Unique } from "typeorm";
+import { Column, DeleteDateColumn, Entity, JoinColumn, OneToMany, OneToOne, Unique } from "typeorm";
 import "reflect-metadata";
 import BaseModel from "../../models/base.model";
 import { Profile } from "../profile/profile.model";
@@ -14,9 +14,10 @@ export class User extends BaseModel {
   password?: string;
 
   @Column({
+    type: 'simple-array',
     default: 'USER',
   })
-  roles?: string;
+  roles?: string[];
 
   @OneToOne(() => Profile, {
     eager: true,
@@ -26,5 +27,11 @@ export class User extends BaseModel {
   profile?: Profile;
 
   @OneToMany(() => TimeSheet, (timeSheet) => timeSheet.user)
-  timeSheets?: TimeSheet[]
+  timeSheets?: TimeSheet[];
+
+  // @OneToMany(() => Leave, (leave) => leave.user)
+  // leaves?: Leave[];
+
+  @DeleteDateColumn()
+  deletedAt?: Date;
 }

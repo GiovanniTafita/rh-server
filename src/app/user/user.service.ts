@@ -40,4 +40,11 @@ export class UserService extends DataService<User> {
 
     return users;
   }
+
+  async updateUser(id: number, data: any) {
+    if (data.password) {
+      data.password = await bcrypt.hash(data.password, 10);
+    }
+    return this.update2(id, data);
+  }
 }

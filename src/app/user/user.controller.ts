@@ -34,7 +34,7 @@ export const loginUser = async (req: Request, res: Response) => {
 export const updateUser = async (req: Request, res: Response) => {
   try {
     const id = +req.params['id'];
-    const updatedUser = await userService.update2(id, req.body);
+    const updatedUser = await userService.updateUser(id, req.body);
 
     return res.status(201).json(updatedUser);
   } catch (error) {
