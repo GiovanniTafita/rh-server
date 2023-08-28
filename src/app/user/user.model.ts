@@ -3,6 +3,7 @@ import "reflect-metadata";
 import BaseModel from "../../models/base.model";
 import { Profile } from "../profile/profile.model";
 import { TimeSheet } from "../time-sheet/time-sheet.model";
+import { Leave } from "../leave/leave.model";
 
 @Entity()
 @Unique(['email'])
@@ -29,8 +30,8 @@ export class User extends BaseModel {
   @OneToMany(() => TimeSheet, (timeSheet) => timeSheet.user)
   timeSheets?: TimeSheet[];
 
-  // @OneToMany(() => Leave, (leave) => leave.user)
-  // leaves?: Leave[];
+  @OneToMany(() => Leave, (leave) => leave.user)
+  leaves?: Leave[];
 
   @DeleteDateColumn()
   deletedAt?: Date;
