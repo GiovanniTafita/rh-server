@@ -16,7 +16,7 @@ export class User extends BaseModel {
 
   @Column({
     type: 'simple-array',
-    default: 'USER',
+    default: 'user',
   })
   roles?: string[];
 

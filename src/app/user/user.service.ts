@@ -45,6 +45,6 @@ export class UserService extends DataService<User> {
     if (data.password) {
       data.password = await bcrypt.hash(data.password, 10);
     }
-    return this.update2(id, data);
+    return this.update2({ id }, data);
   }
 }

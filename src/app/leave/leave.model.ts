@@ -12,13 +12,16 @@ export class Leave extends BaseModel {
   end?: Date;
 
   @Column({ nullable: true })
-  state?: string;
+  status?: string;
 
   @Column({ nullable: true })
   approvedAt?: Date;
 
   @Column({ nullable: true })
   rejectedAt?: Date;
+
+  @Column({ nullable: true })
+  message?: string;
 
   @Column({ nullable: true })
   managerId?: number;

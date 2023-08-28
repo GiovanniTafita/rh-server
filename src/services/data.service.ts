@@ -35,6 +35,10 @@ export class DataService<T> {
     return await this.repository.find({ withDeleted: option });
   }
 
+  public async getWithOption(option: any = null) {
+    return await this.repository.find(option);
+  }
+
   public async getOneBy(condition: any) {
     return await this.repository.findOneBy(condition);
   }

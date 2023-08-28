@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { verifyToken } from '../services/token.service';
 import Logger from '../logger/logger';
 
-export const auth = (role: string = 'USER') => {
+export const auth = (role: string = 'user') => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const token = req.header('Authorization')?.split(' ')[1];
     if (!token) {
@@ -16,7 +16,8 @@ export const auth = (role: string = 'USER') => {
       }
       if (decodedToken) {
         const payload: any = decodedToken;
-        if (payload.roles.includes(role.toLocaleUpperCase())) {
+        req.body.userId = payload.userId;
+        if (payload.roles.includes(role.toLocaleLowerCase())) {
           return next();
         }
         else {
