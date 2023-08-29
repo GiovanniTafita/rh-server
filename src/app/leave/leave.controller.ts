@@ -18,7 +18,21 @@ export const getLeaves = async (req: Request, res: Response) => {
     const leaves = await leaveService.getWithOption({
       relations: { user: true }
     });
-    return res.status(201).json(leaves);
+    return res.status(200).json(leaves);
+
+  } catch (error) {
+    return res.status(500).json({ error });
+  }
+}
+
+export const getUserLeaves = async (req: Request, res: Response) => {
+  try {
+    const leaves = await leaveService.getAllBy({
+      user: {
+        id: +req.body.userId
+      }
+    });
+    return res.status(200).json(leaves);
 
   } catch (error) {
     return res.status(500).json({ error });
@@ -30,7 +44,7 @@ export const updateLeaves = async (req: Request, res: Response) => {
     const id = +req.params['id'];
     const updatedLeave = await leaveService.update(id, req.body);
 
-    return res.status(201).json(updatedLeave);
+    return res.status(200).json(updatedLeave);
   } catch (error) {
     return res.status(500).json({ error });
   }
@@ -49,7 +63,7 @@ export const approve = async (req: Request, res: Response) => {
       }
     );
 
-    return res.status(201).json(updatedLeave);
+    return res.status(200).json(updatedLeave);
   } catch (error) {
     return res.status(500).json({ error });
   }
@@ -68,7 +82,7 @@ export const reject = async (req: Request, res: Response) => {
       }
     );
 
-    return res.status(201).json(updatedLeave);
+    return res.status(200).json(updatedLeave);
   } catch (error) {
     return res.status(500).json({ error });
   }

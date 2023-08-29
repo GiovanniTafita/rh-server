@@ -13,7 +13,7 @@ export class Profile extends BaseModel {
   @Column({ nullable: true })
   birthDate?: Date;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, length: 14 })
   tel?: string;
 
   @Column({ nullable: true })
