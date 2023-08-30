@@ -4,6 +4,11 @@ import BaseModel from "../../models/base.model";
 import { User } from "../user/user.model";
 import { Category } from "../category/category.model";
 
+export enum LeaveState {
+  pending = 'en attente',
+  approved = 'approuvée',
+  rejected = 'rejetée'
+}
 @Entity()
 export class Leave extends BaseModel {
   @Column({ nullable: true })
@@ -12,9 +17,12 @@ export class Leave extends BaseModel {
   @Column({ nullable: true })
   end?: Date;
 
-  @Column({ nullable: true })
-  status?: string;
-
+  @Column({
+    type: 'enum',
+    enum: LeaveState,
+    default: LeaveState.pending
+  })
+  status?: LeaveState;
 
   @Column({ nullable: true })
   approvedAt?: Date;

@@ -23,11 +23,10 @@ export class DataService<T> {
   }
 
   public async update2(condition: any, data: any) {
-    const current = await this.getOneBy(condition);
+    const current = await this.repository.findOneByOrFail(condition);
     if (current) {
       await this.repository.merge(current, data);
       return await this.repository.save(current);
-
     }
   }
 

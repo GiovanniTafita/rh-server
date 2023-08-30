@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { LeaveService } from "./leave.service";
+import { LeaveState } from "./leave.model";
 
 const leaveService = new LeaveService();
 
@@ -56,6 +57,7 @@ export const approve = async (req: Request, res: Response) => {
     const updatedLeave = await leaveService.update2(
       { id },
       {
+        status: LeaveState.approved,
         approvedAt: new Date,
         rejectedAt: null,
         managerId: +req.body.userId,
@@ -75,6 +77,7 @@ export const reject = async (req: Request, res: Response) => {
     const updatedLeave = await leaveService.update2(
       { id },
       {
+        status: LeaveState.rejected,
         rejectedAt: new Date,
         approvedAt: null,
         managerId: +req.body.userId,

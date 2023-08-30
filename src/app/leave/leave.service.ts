@@ -18,6 +18,7 @@ export class LeaveService extends DataService<Leave> {
     }
     const user = await this.userService.getOneBy({ id: userId });
     const category = await this.categoryService.getOneBy({ name: data.category });
+    if (!category) throw new Error('Error');
 
     newLeave.start = data.start;
     newLeave.end = data.end;
