@@ -1,7 +1,6 @@
 import { Column, DeleteDateColumn, Entity, JoinColumn, OneToMany, OneToOne, Unique } from "typeorm";
 import "reflect-metadata";
 import BaseModel from "../../models/base.model";
-import { Profile } from "../profile/profile.model";
 import { TimeSheet } from "../time-sheet/time-sheet.model";
 import { Leave } from "../leave/leave.model";
 
@@ -9,23 +8,34 @@ import { Leave } from "../leave/leave.model";
 @Unique(['email'])
 export class User extends BaseModel {
   @Column()
-  email?: string;
+  email!: string;
 
   @Column()
-  password?: string;
+  password!: string;
 
   @Column({
     type: 'simple-array',
     default: 'user',
   })
-  roles?: string[];
+  roles!: string[];
 
-  @OneToOne(() => Profile, {
-    eager: true,
-    cascade: true
-  })
-  @JoinColumn()
-  profile?: Profile;
+  @Column({ nullable: true })
+  name?: string;
+
+  @Column({ nullable: true })
+  firstName?: string;
+
+  @Column({ nullable: true })
+  birthDate?: Date;
+
+  @Column({ nullable: true, length: 14 })
+  tel?: string;
+
+  @Column({ nullable: true })
+  function1?: string;
+
+  @Column({ nullable: true })
+  solde?: number;
 
   @OneToMany(() => TimeSheet, (timeSheet) => timeSheet.user)
   timeSheets?: TimeSheet[];

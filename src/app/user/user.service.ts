@@ -13,8 +13,7 @@ export class UserService extends DataService<User> {
       const hashedPassword = await bcrypt.hash(data.password, 10);
       return await this.create({
         email: data.email,
-        password: hashedPassword,
-        profile: data.profile
+        password: hashedPassword
       });
     }
   }

@@ -16,6 +16,7 @@ const io = new Server(httpServer, {
     origin: '*'
   }
 });
+
 io.on('connection', (socket) => {
   Logger.info(socket.id);
   socket.on('test', (data) => {

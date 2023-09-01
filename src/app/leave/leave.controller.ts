@@ -31,7 +31,8 @@ export const getUserLeaves = async (req: Request, res: Response) => {
     const leaves = await leaveService.getAllBy({
       user: {
         id: +req.body.userId
-      }
+      },
+      relation: { user: true }
     });
     return res.status(200).json(leaves);
 

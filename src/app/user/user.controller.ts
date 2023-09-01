@@ -1,17 +1,14 @@
 import { Request, Response } from 'express';
 import { User } from './user.model';
 import { UserService } from './user.service';
-import { Profile } from '../profile/profile.model';
 
 const userService = new UserService();
 export const createUser = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
     const user = new User();
-    const profile = new Profile();
     user.email = email;
     user.password = password;
-    user.profile = profile;
 
     const newUser = await userService.registerUser(user);
 
